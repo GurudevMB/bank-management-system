@@ -1,3 +1,4 @@
+from exceptions import InvalidAmountError, InsufficientFundsError
 from dataclasses import dataclass
 
 
@@ -8,9 +9,9 @@ class Account:
     balance: float = 0
 
     def deposit(self, amount):
+
         if amount <= 0:
-            print("Deposit amount must be greater than zero.")
-            return
+            raise InvalidAmountError("Deposit amount must be greater than zero.")
 
         self.balance += amount
         print(f"₹{amount} deposited successfully.")
@@ -18,12 +19,10 @@ class Account:
 
     def withdraw(self, amount):
         if amount <= 0:
-            print("Withdrawal amount must be greater than zero.")
-            return
+            raise InvalidAmountError("Withdrawal amount must be greater than zero.")
 
         if amount > self.balance:
-            print("Insufficient Balance.")
-            return
+            raise InsufficientFundsError("Insufficient Balance.")
 
         self.balance -= amount
         print(f"₹{amount} withdrawn successfully.")

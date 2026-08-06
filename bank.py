@@ -1,5 +1,5 @@
+from exceptions import AccountNotFoundError
 from account import Account 
-print("bank.py loaded")
 
 
 class Bank:
@@ -28,30 +28,31 @@ class Bank:
         return self.accounts.get(account_number)
 
     
+
     def deposit(self, account_number, amount):
         account = self.search_account(account_number)
 
-        if account:
-            account.deposit(amount)
-        else:
-            print("Account not found.")
+        if not account:
+            raise AccountNotFoundError("Account not found.")
+
+        account.deposit(amount)
 
     
     def withdraw(self, account_number, amount):
         account = self.search_account(account_number)
 
-        if account:
-            account.withdraw(amount)
-        else:
-            print("Account not found.")
+        if not account:
+            raise AccountNotFoundError("Account not found.")
+
+        account.withdraw(amount)
 
     def check_balance(self, account_number):
         account = self.search_account(account_number)
 
-        if account:
-            account.check_balance()
-        else:
-            print("Account not found.")
+        if not account:
+            raise AccountNotFoundError("Account not found.")
+
+        account.check_balance()
 
     def view_all_accounts(self):
         if not self.accounts:
@@ -62,11 +63,10 @@ class Bank:
             account.display_account()
 
     def delete_account(self, account_number):
-        if account_number in self.accounts:
-            del self.accounts[account_number]
-            print("Account deleted successfully.")
-        else:
-            print("Account not found.")
+        if account_number not in self.accounts:
+            raise AccountNotFoundError("Account not found.")
 
+        del self.accounts[account_number]
+        print("Account deleted successfully.")
     
     

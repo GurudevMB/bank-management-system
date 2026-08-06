@@ -1,9 +1,11 @@
 
-import time
-import os
 
-print("Running from:", os.getcwd())
 from bank import Bank
+from exceptions import (
+    InvalidAmountError,
+    InsufficientFundsError,
+    AccountNotFoundError
+)
 
 def display_menu():
     print("\n" + "=" * 40)
@@ -20,7 +22,6 @@ def display_menu():
 
 
 def main():
-    print(Bank)
     bank = Bank()
 
     while True:
@@ -35,40 +36,105 @@ def main():
             bank.create_account(holder_name, initial_balance)
 
             input("\nPress Enter to continue...")
+
+
         elif choice == "2":
-            account_number = int(input("Enter Account Number: "))
-            amount = float(input("Enter Deposit Amount: "))
-            bank.deposit(account_number, amount)
+            try:
+                account_number = int(input("Enter Account Number: "))
+                amount = float(input("Enter Deposit Amount: "))
+
+                bank.deposit(account_number, amount)
+
+            except InvalidAmountError as e:
+                print(e)
+
+            except AccountNotFoundError as e:
+                print(e)
+
+            except ValueError:
+                print("Please enter a valid number.")
+
+            input("\nPress Enter to continue...")
+
 
         elif choice == "3":
-            account_number = int(input("Enter Account Number: "))
-            amount = float(input("Enter Withdraw Amount: "))
-            bank.withdraw(account_number, amount)
+            try:
+                account_number = int(input("Enter Account Number: "))
+                amount = float(input("Enter Withdraw Amount: "))
+
+                bank.withdraw(account_number, amount)
+
+            except InvalidAmountError as e:
+                print(e)
+
+            except InsufficientFundsError as e:
+                print(e)
+
+            except ValueError:
+                print("Please enter a valid number.")
+            except AccountNotFoundError as e:
+                print(e)
+
+            input("\nPress Enter to continue...")
+
+
 
         elif choice == "4":
-            account_number = int(input("Enter Account Number: "))
-            bank.check_balance(account_number)
+            try:
+                account_number = int(input("Enter Account Number: "))
+                bank.check_balance(account_number)
+
+            except AccountNotFoundError as e:
+                print(e)
+
+            except ValueError:
+                print("Please enter a valid account number.")
+
+            input("\nPress Enter to continue...")
+
+
 
         elif choice == "5":
             bank.view_all_accounts()
             input("\nPress Enter to continue...")
 
-        elif choice == "6":
-            account_number = int(input("Enter Account Number: "))
-            account = bank.search_account(account_number)
 
-            if account:
+
+        elif choice == "6":
+            try:
+                account_number = int(input("Enter Account Number: "))
+
+                account = bank.search_account(account_number)
+
+                if not account:
+                    raise AccountNotFoundError("Account not found.")
+
                 account.display_account()
-            else:
-                print("Account not found.")
+
+            except AccountNotFoundError as e:
+                print(e)
+
+            except ValueError:
+                print("Please enter a valid account number.")
 
             input("\nPress Enter to continue...")
 
         elif choice == "7":
-            account_number = int(input("Enter Account Number: "))
-            bank.delete_account(account_number)
+            try:
+                account_number = int(input("Enter Account Number: "))
+                bank.delete_account(account_number)
+
+            except AccountNotFoundError as e:
+                print(e)
+
+            except ValueError:
+                print("Please enter a valid account number.")
 
             input("\nPress Enter to continue...")
+
+
+
+        
         elif choice == "8":
             print("\nThank you for using Bank Management System!")
             break
