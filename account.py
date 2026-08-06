@@ -1,10 +1,11 @@
-print("account.py loaded")
-class Account:
+from dataclasses import dataclass
 
-    def __init__(self, account_number, holder_name, balance=0):
-        self.account_number = account_number
-        self.holder_name = holder_name
-        self.balance = balance
+
+@dataclass
+class Account:
+    account_number: int
+    holder_name: str
+    balance: float = 0
 
     def deposit(self, amount):
         if amount <= 0:
@@ -14,6 +15,7 @@ class Account:
         self.balance += amount
         print(f"₹{amount} deposited successfully.")
         print(f"Current Balance: ₹{self.balance}")
+
     def withdraw(self, amount):
         if amount <= 0:
             print("Withdrawal amount must be greater than zero.")
@@ -26,8 +28,10 @@ class Account:
         self.balance -= amount
         print(f"₹{amount} withdrawn successfully.")
         print(f"Current Balance: ₹{self.balance}")
+
     def check_balance(self):
         print(f"Current Balance: ₹{self.balance}")
+
     def display_account(self):
         print("\n" + "=" * 30)
         print("      ACCOUNT DETAILS")
