@@ -1,6 +1,9 @@
 
-from bank import Bank
+import time
+import os
 
+print("Running from:", os.getcwd())
+from bank import Bank
 
 def display_menu():
     print("\n" + "=" * 40)
@@ -17,6 +20,7 @@ def display_menu():
 
 
 def main():
+    print(Bank)
     bank = Bank()
 
     while True:
@@ -28,12 +32,9 @@ def main():
             holder_name = input("Enter Account Holder Name: ")
             initial_balance = float(input("Enter Initial Balance: "))
 
-            print("Before create_account")
-
             bank.create_account(holder_name, initial_balance)
 
-            print("After create_account")
-
+            input("\nPress Enter to continue...")
         elif choice == "2":
             account_number = int(input("Enter Account Number: "))
             amount = float(input("Enter Deposit Amount: "))
@@ -50,6 +51,7 @@ def main():
 
         elif choice == "5":
             bank.view_all_accounts()
+            input("\nPress Enter to continue...")
 
         elif choice == "6":
             account_number = int(input("Enter Account Number: "))
@@ -60,10 +62,13 @@ def main():
             else:
                 print("Account not found.")
 
+            input("\nPress Enter to continue...")
+
         elif choice == "7":
             account_number = int(input("Enter Account Number: "))
             bank.delete_account(account_number)
 
+            input("\nPress Enter to continue...")
         elif choice == "8":
             print("\nThank you for using Bank Management System!")
             break
