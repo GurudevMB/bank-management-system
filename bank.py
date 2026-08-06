@@ -9,12 +9,12 @@ class Bank:
 
 
     def create_account(self, holder_name, initial_balance):
+        print("DEBUG: create_account called")
         account = Account(
             self.next_account_number,
             holder_name,
             initial_balance
         )
-
         self.accounts[self.next_account_number] = account
 
         print("\nAccount Created Successfully!")
