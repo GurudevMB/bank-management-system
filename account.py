@@ -13,7 +13,6 @@ class Account:
         self.balance += amount
         print(f"₹{amount} deposited successfully.")
         print(f"Current Balance: ₹{self.balance}")
-
     def withdraw(self, amount):
         if amount <= 0:
             print("Withdrawal amount must be greater than zero.")
@@ -26,12 +25,13 @@ class Account:
         self.balance -= amount
         print(f"₹{amount} withdrawn successfully.")
         print(f"Current Balance: ₹{self.balance}")
-
     def check_balance(self):
         print(f"Current Balance: ₹{self.balance}")
-
     def display_account(self):
-        print("\n----- Account Details -----")
+        print("\n" + "=" * 30)
+        print("      ACCOUNT DETAILS")
+        print("=" * 30)
         print(f"Account Number : {self.account_number}")
         print(f"Account Holder : {self.holder_name}")
-        print(f"Balance        : ₹{self.balance}")
+        print(f"Balance         : ₹{self.balance}")
+        print("=" * 30)
